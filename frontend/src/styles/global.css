@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  color-scheme: light;
+  --bg:            #f0ede6;
+  --surface:       #fffefb;
+  --surface2:      #f7f4ee;
+  --border:        #e2d9ca;
+  --border2:       #cfc5b4;
+  --text:          #1c1814;
+  --muted:         #6b6258;
+  --teal:          #0d9488;
+  --teal-hover:    #0f766e;
+  --teal-glow:     rgba(13, 148, 136, 0.14);
+  --danger:        #b91c1c;
+  --danger-light:  #fee2e2;
+  --danger-border: #fca5a5;
+  --radius:        14px;
+  --radius-sm:     9px;
+  --shadow:        0 8px 28px rgba(28, 24, 20, 0.07);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  background: radial-gradient(ellipse at 10% 0%, #fff8ef 0%, var(--bg) 55%);
+}
+
+body { min-height: 100vh; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.app {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+.app__header { margin-bottom: 28px; animation: fadeUp 0.5s ease both; }
+
+.app__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 4px;
+}
+
+.app__header h1 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.app__layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.app__sidebar { display: grid; gap: 18px; }
+
+@media (max-width: 860px) {
+  .app__layout { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.panel--detail  { min-height: 480px; }
+.panel--empty   { display: grid; place-items: center; }
+
+.panel__header h2 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+.panel__header p  { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+
+.panel__header--detail {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.create-form { display: grid; gap: 10px; }
+
+.create-form__textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 130px;
+  padding: 12px 14px;
+  border: 0.5px solid var(--border2);
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.create-form__textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px var(--teal-glow);
+}
+
+.create-form__textarea--error {
+  border-color: var(--danger-border);
+}
+
+.create-form__textarea--error:focus {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+}
+
+.create-form__error {
+  font-size: 12px;
+  color: var(--danger);
+}
+
+.button {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:disabled { opacity: 0.55; cursor: not-allowed; }
+.button--primary { width: 100%; background: var(--teal); color: #fff; }
+.button--primary:hover:not(:disabled) { background: var(--teal-hover); }
+.button--danger {
+  width: 100%;
+  background: transparent;
+  color: var(--danger);
+  border: 0.5px solid var(--danger-border);
+  margin-bottom: 16px;
+}
+
+.job-list { list-style: none; display: grid; gap: 8px; }
+
+.job-list__item {
+  width: 100%;
+  text-align: left;
+  border: 0.5px solid var(--border);
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  cursor: pointer;
+}
+
+.job-list__item--active {
+  border-color: var(--teal);
+  background: #f0fdfa;
+}
+
+.job-list__row,
+.job-list__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.job-list__meta { margin-top: 5px; font-size: 11px; color: var(--muted); }
+.job-list__id { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+.badge {
+  display: inline-flex;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.badge--pending     { background: #f3f4f6; color: #374151; }
+.badge--in_progress { background: #dbeafe; color: #1d4ed8; }
+.badge--completed   { background: #d1fae5; color: #065f46; }
+.badge--cancelled   { background: #f5f5f4; color: #57534e; }
+.badge--failed,
+.badge--error       { background: var(--danger-light); color: var(--danger); }
+.badge--success     { background: #d1fae5; color: #065f46; }
+
+.progress-card {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.progress-card__label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 9px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #14b8a6, var(--teal));
+  transition: width 0.85s ease;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.url-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+
+.url-table th {
+  padding: 9px 12px;
+  background: var(--surface2);
+  border-bottom: 0.5px solid var(--border);
+  text-align: left;
+  font-size: 10.5px;
+  color: var(--muted);
+}
+
+.url-table td {
+  padding: 9px 12px;
+  border-bottom: 0.5px solid var(--border);
+  vertical-align: middle;
+}
+
+.url-table__url { font-family: 'JetBrains Mono', monospace; word-break: break-all; }
+.url-table__err { color: var(--danger); max-width: 200px; word-break: break-word; }
+
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+
+.alert--error {
+  background: var(--danger-light);
+  color: #991b1b;
+  border: 0.5px solid var(--danger-border);
+}
+
+.muted { color: var(--muted); }
